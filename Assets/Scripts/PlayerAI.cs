@@ -3,10 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAI : MonoBehaviour
 {
 
+
+
+    private enum Difficulty
+    {
+        Easy = 0,
+        Hard = 1,
+        Impossible = 2
+    }
+
+    private Difficulty _difficulty = Difficulty.Easy;
+
+    [SerializeField]
+    private Dropdown _dropdown;
+
+
+    public void OnDropdownChange()
+    {
+        Debug.Log(_dropdown.value);
+        _difficulty = (Difficulty)_dropdown.value;
+    }
 
 
     void Start()
@@ -39,6 +60,33 @@ public class PlayerAI : MonoBehaviour
         {
             Debug.Log("  "+item.Id+"->"+item.Value);
         }
+
+
+        if(_difficulty == Difficulty.Easy)
+        {
+            int r = UnityEngine.Random.Range(0, currentNode.Childs.Count);
+            Vector2Int rowCol = currentNode.Childs[r].GetRowCol(currentNode.Id);
+
+            Debug.Log("Random SELECTED : " + currentNode.Childs[r].Id + "->" + rowCol.x + " " + rowCol.y);
+            GameManager.Instance.Play(rowCol.x, rowCol.y, XOX.O);
+            return;
+        }
+
+        if(_difficulty == Difficulty.Hard)
+        {
+            int playRandom = UnityEngine.Random.Range(0, 100);
+            if (playRandom < 20f)
+            {
+                int r = UnityEngine.Random.Range(0, currentNode.Childs.Count);
+                Vector2Int rowCol = currentNode.Childs[r].GetRowCol(currentNode.Id);
+
+                Debug.Log("Random SELECTED : " + currentNode.Childs[r].Id + "->" + rowCol.x + " " + rowCol.y);
+                GameManager.Instance.Play(rowCol.x, rowCol.y, XOX.O);
+                return;
+            }
+
+        }
+
 
         // Is there a child with value O win
         List<Node> childValueO = currentNode.ChildsOWin;
