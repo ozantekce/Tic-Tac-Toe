@@ -2,7 +2,7 @@
  
 https://ozantekce.itch.io/tic-tac-toe
 
-This project uses a minimax tree. A player is labeled X and AI is labeled O. The game value is 1 if the player wins the game, and the game value is -1 if the AI wins the game, otherwise, the game is a draw and the value is 0.
+This project is using minimax tree. A player is labeled X and AI is labeled O. The game value is 1 if the player wins the game, and the game value is -1 if the AI wins the game, otherwise, the game is a draw and the value is 0.
 
 A tree node is labeled as max or min. A child node will be labeled min if its parent is max or labeled max if its parent is min. Only leaves can have value directly. This value is calculated as above. Other nodes will select a value from children. For example, if a node has 2 children and this node is a max, child1's value is 0, and child2's value is 1 it will select child2's value so its value will be 1.
 
