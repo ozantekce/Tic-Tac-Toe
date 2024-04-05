@@ -189,10 +189,7 @@ public class GameManager : MonoBehaviour
 
     public GameStatus CheckGameStatus()
     {
-        if(_sequence == 9)
-        {
-            return 0;
-        }
+
 
         bool row0 = _board[0][0] != XOX.N && _board[0][0] == _board[0][1] && _board[0][0] == _board[0][2];
         if (row0)
@@ -248,6 +245,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("cross 1");
             return (GameStatus)XOXHelper.XoxValuePair[_board[0][2]];
+        }
+
+        if (_sequence == 9)
+        {
+            return GameStatus.Draw;
         }
 
         return (GameStatus)(-5);
